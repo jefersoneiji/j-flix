@@ -1,0 +1,55 @@
+@use '_variables' as v;
+
+.container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 1fr auto;
+    column-gap: .75em;
+}
+
+.col-12 {
+    grid-column: auto/ span 12;
+}
+
+.col-6 {
+    grid-column: auto/ span 6;
+}
+
+@media only screen and (min-width: v.$xs) and (max-width:v.$sm) {
+    .col-sm-12 {
+        grid-column: auto/ span 12;
+        border: 1px solid brown;
+    }
+}
+
+@media only screen and (min-width: v.$sm) and (max-width:v.$md) {
+    .col-md-12 {
+        grid-column: auto/ span 12;
+        border: 1px solid green;
+    }
+}
+
+@media only screen and (min-width: v.$md) and (max-width: v.$lg) {
+    .col-lg-4 {
+        grid-column: auto/ span 4;
+        border: 1px solid blue;
+    }
+}
+
+@media only screen and (min-width: v.$lg) and (max-width: v.$xl) {
+    .col-xl-4 {
+        grid-column: auto/ span 4;
+    }
+}
+
+@media only screen and (min-width: v.$xl) {
+    .col-xxl-4 {
+        grid-column: auto/ span 4;
+    }
+}
