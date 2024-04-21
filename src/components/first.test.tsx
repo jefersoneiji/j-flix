@@ -14,5 +14,5 @@ test('should increase counter to 1', async () => {
 
     await userEvent.click(screen.getByRole('button', { name: /increase/ }))
 
-    expect(screen.getByText(/count is 1/i)).toBeTruthy()
+    expect(screen.getByText(/count is 1/i)).toBeInTheDocument()
 })
