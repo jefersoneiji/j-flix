@@ -11,11 +11,13 @@ export const ShowDetails = () => {
     return (
         <>
             <div className="container">
-                <div className="row" style={{ maxHeight: 214, marginTop: 42, marginBottom:42 }}>
-                    <img src={defaultPoster} width={142} height={214} style={{borderRadius:8}} />
-                    <div className="col-10" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div className="row" style={{ marginTop: 42, marginBottom: 42 }}>
+                    <div className="col-sm-12">
+                        <img src={defaultPoster} width={200} height={300} style={{ borderRadius: 8 }} />
+                    </div>
+                    <div className="col-10 col-sm-12" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                         <p style={{ margin: 0 }}><b>{title}</b></p>
-                        <p style={{ margin: 0, paddingTop:8, paddingBottom:16 }}><b>Seasons {seasons} - Airing {dayjs(premiered).format('DD MMM YYYY')} to {dayjs(ended).format('DD MMM YYYY') || status}</b></p>
+                        <p style={{ margin: 0, paddingTop: 8, paddingBottom: 16 }}><b>Seasons {seasons} - Airing {dayjs(premiered).format('DD MMM YYYY')} to {dayjs(ended).format('DD MMM YYYY') || status}</b></p>
                         <p style={{ margin: 0 }}>{summary}</p>
                     </div>
                 </div>
