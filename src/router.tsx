@@ -1,17 +1,22 @@
-import { createBrowserRouter, useParams } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { App } from "./App";
+import { Home } from "./home";
+import { ShowDetails } from "./show-details";
 
-export const MovieDetails = () => {
-    const { movieId } = useParams()
-    return (<>Movie details from {movieId} here!</>)
-}
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <App />
+        element: <App />,
+        children: [
+            {
+                path:'/',
+                element: <Home/>
+            },
+            {
+                path: '/show/:showId',
+                element: <ShowDetails />
+            }
+        ]
     },
-    {
-        path: '/movie/:movieId',
-        element: <MovieDetails />
-    }
+
 ])
