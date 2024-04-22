@@ -7,12 +7,12 @@ type MovieProps = {
 }
 export const MovieCard = ({ id }: MovieProps) => {
     return (
-        <Link to={`movie/${id}`} style={{ marginTop: 20 }}>
+        <Link to={`show/${id}`} style={{ marginTop: 20 }}>
             <img
                 src={defaultImage}
                 width={137}
                 height={193}
-                alt={`movie-card-${id}`}
+                alt={`show-card-${id}`}
                 style={{ borderRadius: 8 }}
             />
         </Link>

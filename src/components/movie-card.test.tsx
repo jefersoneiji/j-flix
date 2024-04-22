@@ -1,13 +1,27 @@
 import { render, screen } from "@testing-library/react"
 import { RouterProvider, createMemoryRouter } from "react-router-dom"
 
-import { MovieDetails } from "../router"
 import { App } from "../App"
 import userEvent from "@testing-library/user-event"
+import { Home } from "../home"
+import { ShowDetails } from "../show-details"
 
 const routes = [
-    { path: '/', element: <App /> },
-    { path: '/movie/:movieId', element: <MovieDetails /> }
+    {
+        path: '/',
+        element: <App />,
+        children: [
+            {
+                path:'/',
+                element: <Home/>
+            },
+            {
+                path: '/show/:showId',
+                element: <ShowDetails />
+            }
+        ]
+    },
+
 ]
 
 const router = createMemoryRouter(routes, {
@@ -17,7 +31,7 @@ const router = createMemoryRouter(routes, {
 test('should navigate to movie details page on click', async() => {
     render(<RouterProvider router={router} />)
 
-    await userEvent.click(screen.getByAltText('movie-card-1'))
+    await userEvent.click(screen.getByAltText('show-card-1'))
 
-    expect(router.state.location.pathname).toEqual('/movie/1')
+    expect(router.state.location.pathname).toEqual('/show/1')
 })
