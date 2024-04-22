@@ -1,21 +1,24 @@
 import { useParams } from "react-router-dom"
 import { ShowDetailsCard } from "./components/show-details-card"
+import './css/_grid.scss'
 
 export const ShowDetails = () => {
     const { showId } = useParams()
     return (
         <>
             Show details from {showId} here!
-            {episodes.map(({ season, title, summary, id, duration }) =>
-                <ShowDetailsCard
-                    key={id}
-                    title={title}
-                    season={season}
-                    id={id}
-                    duration={duration}
-                    summary={summary}
-                />
-            )}
+            <div className="container">
+                {episodes.map(({ season, title, summary, id, duration }) =>
+                    <ShowDetailsCard
+                        key={id}
+                        title={title}
+                        season={season}
+                        id={id}
+                        duration={duration}
+                        summary={summary}
+                    />
+                )}
+            </div>
         </>
     )
 }
