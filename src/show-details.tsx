@@ -1,11 +1,27 @@
 import { useParams } from "react-router-dom"
+import dayjs from 'dayjs'
+
 import { ShowDetailsCard } from "./components/show-details-card"
 import './css/_grid.scss'
+import defaultPoster from './assets/poster.jpg'
 
 export const ShowDetails = () => {
     const { showId } = useParams()
+    const { title, seasons, premiered, ended, status, summary } = show
     return (
         <>
+            <div className="container">
+                <div className="row" style={{ marginTop: 42, marginBottom: 42 }}>
+                    <div className="col-sm-12">
+                        <img src={defaultPoster} width={200} height={300} style={{ borderRadius: 8 }} />
+                    </div>
+                    <div className="col-10 col-sm-12" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                        <p style={{ margin: 0 }}><b>{title}</b></p>
+                        <p style={{ margin: 0, paddingTop: 8, paddingBottom: 16 }}><b>Seasons {seasons} - Airing {dayjs(premiered).format('DD MMM YYYY')} to {dayjs(ended).format('DD MMM YYYY') || status}</b></p>
+                        <p style={{ margin: 0 }}>{summary}</p>
+                    </div>
+                </div>
+            </div>
             Show details from {showId} here!
             <div className="container">
                 {episodes.map(({ season, title, summary, id, duration }) =>
@@ -21,6 +37,15 @@ export const ShowDetails = () => {
             </div>
         </>
     )
+}
+
+const show = {
+    "title": "Breaking Bad",
+    "seasons": 5,
+    "premiered": "2008-01-20T00:00:00Z",
+    "ended": "2013-09-29T00:00:00Z",
+    "status": "Ended",
+    "summary": "Breaking Bad follows protagonist Walter White, a chemistry teacher who lives in New Mexico with his wife and teenage son who has cerebral palsy. White is diagnosed with Stage III cancer and given a prognosis of two years left to live. With a new sense of fearlessness based on his medical prognosis, and a desire to secure his family's financial security, White chooses to enter a dangerous world of drugs and crime and ascends to power in the world of methamphetamine production. The series explores how a fatal diagnosis such as White's releases a typical man from the daily concerns and constraints of normal society and follows his transformation from mild family man to a kingpin of the drug trade."
 }
 
 const episodes = [
