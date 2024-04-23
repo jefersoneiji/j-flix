@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react"
 import { RouterProvider, createMemoryRouter } from "react-router-dom"
+import userEvent from "@testing-library/user-event"
 
 import { App } from "../App"
-import userEvent from "@testing-library/user-event"
 import { Home } from "../home"
 import { ShowDetails } from "../show-details"
 
