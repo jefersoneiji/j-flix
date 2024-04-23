@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom'
 
-import defaultImage from '../assets/show-image.jpg'
-
 type MovieProps = {
     id: number,
+    imageURL: string
 }
-export const MovieCard = ({ id }: MovieProps) => {
+export const MovieCard = ({ id, imageURL }: MovieProps) => {
     return (
         <Link to={`show/${id}`} style={{ marginTop: 20 }}>
             <img
-                src={defaultImage}
+                src={imageURL}
                 width={137}
                 height={193}
                 alt={`show-card-${id}`}
