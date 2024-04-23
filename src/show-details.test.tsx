@@ -16,7 +16,6 @@ const routes = [
             }
         ]
     },
-
 ]
 
 const router = createMemoryRouter(routes, {
