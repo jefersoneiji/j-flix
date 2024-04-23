@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+
 import '../css/_navbar.scss'
 import { useShrink } from '../utils/useShrink'
 
@@ -10,23 +12,17 @@ export const Navbar = () => {
     return (
         <header>
             <nav className="nav-container">
-                <a className='navbar-brand'>
+                <Link to={'/'} className='navbar-brand nav-link'>
                     JFlix
-                </a>
+                </Link>
                 {shrink && show &&
                     <div className='navbar-collapse'>
-                        <ul className='navbar-nav'>
-                            <li className='nav-item'>Início</li>
-                            <li className='nav-item'>About</li>
-                            <li className='nav-item'>Login</li>
-                        </ul>
+                        <NavItems />
                     </div>
                 }
                 {!shrink && <div className='navbar-collapse'>
                     <ul className='navbar-nav'>
-                        <li className='nav-item'>Início</li>
-                        <li className='nav-item'>About</li>
-                        <li className='nav-item'>Login</li>
+                        <NavItems />
                     </ul>
                 </div>}
                 {shrink && !show && <button onClick={onShow} name="show-menu">Show Menu</button>}
@@ -35,3 +31,23 @@ export const Navbar = () => {
         </header>
     )
 }
+
+const NavItems = () => {
+    return (
+        <ul className='navbar-nav'>
+            {items.map(({ path, label }, idx) =>
+                <li key={idx} className='nav-item'>
+                    <Link to={path} className='nav-link'>
+                        {label}
+                    </Link>
+                </li>
+            )}
+        </ul>
+    )
+}
+
+const items = [
+    { path: '/', label: 'Home' },
+    { path: '/', label: 'About' },
+    { path: '/', label: 'Login' },
+]

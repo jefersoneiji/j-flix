@@ -38,6 +38,11 @@
     padding-right: 10px;
 }
 
+.nav-link {
+    text-decoration: none;
+    color: black;
+}
+
 @media only screen and (min-width: v.$xs) and (max-width:v.$md) {
     .navbar {
         position: relative;
