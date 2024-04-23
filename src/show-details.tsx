@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import dayjs from 'dayjs'
+import { ChangeEvent, useState } from "react"
 
 import { ShowDetailsCard } from "./components/show-details-card"
 import './css/_grid.scss'
@@ -8,6 +9,9 @@ import defaultPoster from './assets/poster.jpg'
 export const ShowDetails = () => {
     const { showId } = useParams()
     const { title, seasons, premiered, ended, status, summary } = show
+
+    const [season, setSeason] = useState(1)
+    const onChangeSeason = (e: ChangeEvent<HTMLSelectElement>) => setSeason(Number(e.target.value))
     return (
         <>
             <div className="container">
@@ -22,9 +26,23 @@ export const ShowDetails = () => {
                     </div>
                 </div>
             </div>
-            Show details from {showId} here!
             <div className="container">
-                {episodes.map(({ season, title, summary, id, duration }) =>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <h1 style={{ margin: 0 }}>Episodes</h1>
+                    <select
+                        name="seasons"
+                        value={season}
+                        onChange={onChangeSeason}
+                        style={{ maxHeight: 20, marginLeft: 30 }}
+                    >
+                        <option value="1">Season 1</option>
+                        <option value="2">Season 2</option>
+                        <option value="3">Season 3</option>
+                        <option value="4">Season 4</option>
+                        <option value="5">Season 5</option>
+                    </select>
+                </div>
+                {episodes(season).map(({ season, title, summary, id, duration }) =>
                     <ShowDetailsCard
                         key={id}
                         title={title}
@@ -48,11 +66,11 @@ const show = {
     "summary": "Breaking Bad follows protagonist Walter White, a chemistry teacher who lives in New Mexico with his wife and teenage son who has cerebral palsy. White is diagnosed with Stage III cancer and given a prognosis of two years left to live. With a new sense of fearlessness based on his medical prognosis, and a desire to secure his family's financial security, White chooses to enter a dangerous world of drugs and crime and ascends to power in the world of methamphetamine production. The series explores how a fatal diagnosis such as White's releases a typical man from the daily concerns and constraints of normal society and follows his transformation from mild family man to a kingpin of the drug trade."
 }
 
-const episodes = [
+const episodes = (season: number) => [
     {
         "id": 1,
         "title": "The Mystery of the Lost Key",
-        "season": 1,
+        "season": season,
         "duration": 50,
         "airdate": "2024-04-22T18:00:00Z",
         "summary": "A key disappears. A mystery unfolds. Detective Smith is on the case. Will she crack it in time? Follow the clues, uncover the truth, and experience the thrill of solving The Mystery of the Lost Key.",
@@ -63,7 +81,7 @@ const episodes = [
     {
         "id": 2,
         "title": "Into the Unknown",
-        "season": 1,
+        "season": season,
         "duration": 45,
         "airdate": "2024-04-23T19:00:00Z",
         "summary": "A group of adventurers embarks on a perilous journey into uncharted territories, facing dangers at every turn. Will they conquer the unknown or succumb to its mysteries? Discover the answers in Into the Unknown.",
@@ -74,7 +92,7 @@ const episodes = [
     {
         "id": 3,
         "title": "The Haunted Mansion",
-        "season": 1,
+        "season": season,
         "duration": 55,
         "airdate": "2024-04-24T20:00:00Z",
         "summary": "A family moves into a mansion with a dark past, only to discover it's haunted by vengeful spirits. As the mysteries unravel and the hauntings escalate, they must confront their fears or be consumed by The Haunted Mansion.",
@@ -85,7 +103,7 @@ const episodes = [
     {
         "id": 4,
         "title": "Secrets of the Forest",
-        "season": 1,
+        "season": season,
         "duration": 48,
         "airdate": "2024-04-25T21:00:00Z",
         "summary": "Deep in the forest lies hidden treasures and ancient mysteries waiting to be uncovered. Join the expedition as they navigate through the Secrets of the Forest, where every discovery brings new adventures.",
@@ -96,7 +114,7 @@ const episodes = [
     {
         "id": 5,
         "title": "The Curse of Blackwater Manor",
-        "season": 1,
+        "season": season,
         "duration": 52,
         "airdate": "2024-04-26T22:00:00Z",
         "summary": "An old curse reawakens when a family inherits an eerie manor, leading to a battle against evil forces. Can they break the curse before it consumes them? Experience The Curse of Blackwater Manor to find out.",
@@ -107,7 +125,7 @@ const episodes = [
     {
         "id": 6,
         "title": "Under the Starlit Sky",
-        "season": 1,
+        "season": season,
         "duration": 55,
         "airdate": "2024-04-27T23:00:00Z",
         "summary": "A romantic drama unfolds beneath the twinkling stars, exploring love and destiny. Follow the journey of two souls as they navigate the complexities of relationships Under the Starlit Sky.",
@@ -118,7 +136,7 @@ const episodes = [
     {
         "id": 7,
         "title": "Echoes from the Past",
-        "season": 1,
+        "season": season,
         "duration": 50,
         "airdate": "2024-04-28T00:00:00Z",
         "summary": "The ghosts of history come alive as a group of historians delve into forgotten tales. Explore the echoes of the past and uncover hidden truths in Echoes from the Past.",
@@ -129,7 +147,7 @@ const episodes = [
     {
         "id": 8,
         "title": "The Final Confrontation",
-        "season": 1,
+        "season": season,
         "duration": 45,
         "airdate": "2024-04-29T01:00:00Z",
         "summary": "The ultimate battle between good and evil reaches its climax, determining the fate of the world. Brace yourself for The Final Confrontation, where heroes rise and villains fall in the epic struggle for supremacy.",
@@ -140,7 +158,7 @@ const episodes = [
     {
         "id": 9,
         "title": "Lost in Time",
-        "season": 1,
+        "season": season,
         "duration": 58,
         "airdate": "2024-04-30T02:00:00Z",
         "summary": "A time-traveling adventure takes a group of friends on a journey through history's most pivotal moments. Witness the chaos and the beauty as they become Lost in Time.",
@@ -151,7 +169,7 @@ const episodes = [
     {
         "id": 10,
         "title": "The Enigma of the Missing Artifact",
-        "season": 1,
+        "season": season,
         "duration": 50,
         "airdate": "2024-05-01T03:00:00Z",
         "summary": "A museum heist unveils a larger conspiracy, leading detectives on a chase to recover a priceless artifact. Dive into The Enigma of the Missing Artifact and unravel the mystery before time runs out.",
@@ -162,7 +180,7 @@ const episodes = [
     {
         "id": 11,
         "title": "Whispers in the Dark",
-        "season": 1,
+        "season": season,
         "duration": 45,
         "airdate": "2024-05-02T04:00:00Z",
         "summary": "Strange occurrences plague a small town, hinting at dark secrets hidden within its shadows. Listen closely to the Whispers in the Dark, for they hold the key to unlocking the town's sinister past.",
@@ -173,7 +191,7 @@ const episodes = [
     {
         "id": 12,
         "title": "The Island of Eternal Youth",
-        "season": 1,
+        "season": season,
         "duration": 55,
         "airdate": "2024-05-03T05:00:00Z",
         "summary": "Legends come to life as a group of adventurers discovers a mystical island where time stands still. Join the journey to The Island of Eternal Youth, where dreams never fade and youth knows no bounds.",
@@ -184,7 +202,7 @@ const episodes = [
     {
         "id": 13,
         "title": "A Dance with Destiny",
-        "season": 1,
+        "season": season,
         "duration": 48,
         "airdate": "2024-05-04T06:00:00Z",
         "summary": "Love, passion, and betrayal intertwine as dancers vie for success in the competitive world of ballroom. Experience the drama and the elegance in A Dance with Destiny.",
@@ -195,7 +213,7 @@ const episodes = [
     {
         "id": 14,
         "title": "Shadows of the Past",
-        "season": 1,
+        "season": season,
         "duration": 52,
         "airdate": "2024-05-05T07:00:00Z",
         "summary": "A detective's past comes back to haunt him as he investigates a series of gruesome murders. Follow the shadows of the past to uncover the truth in Shadows of the Past.",
@@ -206,7 +224,7 @@ const episodes = [
     {
         "id": 15,
         "title": "The Forbidden Forest",
-        "season": 1,
+        "season": season,
         "duration": 55,
         "airdate": "2024-05-06T08:00:00Z",
         "summary": "A young hero braves the dangers of the forbidden forest in search of a legendary artifact. Dive into the depths of The Forbidden Forest and discover the power of courage.",
@@ -217,7 +235,7 @@ const episodes = [
     {
         "id": 16,
         "title": "Echoes of War",
-        "season": 1,
+        "season": season,
         "duration": 50,
         "airdate": "2024-05-07T09:00:00Z",
         "summary": "The scars of war run deep as soldiers struggle to find peace in the aftermath of battle. Listen to the Echoes of War and witness the resilience of the human spirit.",
@@ -228,7 +246,7 @@ const episodes = [
     {
         "id": 17,
         "title": "The Whispering Woods",
-        "season": 1,
+        "season": season,
         "duration": 45,
         "airdate": "2024-05-08T10:00:00Z",
         "summary": "A journey through the mystical woods leads to encounters with magical creatures and ancient spirits. Hear the whispers of The Whispering Woods and unlock the secrets of nature.",
@@ -239,7 +257,7 @@ const episodes = [
     {
         "id": 18,
         "title": "The Phantom's Revenge",
-        "season": 1,
+        "season": season,
         "duration": 55,
         "airdate": "2024-05-09T11:00:00Z",
         "summary": "A masked vigilante seeks vengeance against those who wronged him, striking fear into the hearts of criminals. Witness The Phantom's Revenge and the price of justice.",
@@ -250,7 +268,7 @@ const episodes = [
     {
         "id": 19,
         "title": "Lost Souls",
-        "season": 1,
+        "season": season,
         "duration": 48,
         "airdate": "2024-05-10T12:00:00Z",
         "summary": "Ghosts of the past haunt a forgotten town, revealing tragic tales of lost love and broken dreams. Search for redemption in the souls that wander through Lost Souls.",
@@ -261,7 +279,7 @@ const episodes = [
     {
         "id": 20,
         "title": "The Midnight Carnival",
-        "season": 1,
+        "season": season,
         "duration": 52,
         "airdate": "2024-05-11T13:00:00Z",
         "summary": "A mysterious carnival arrives in town, promising thrills and chills under the moonlit sky. Explore the wonders and the terrors of The Midnight Carnival.",
