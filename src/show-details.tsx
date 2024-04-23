@@ -27,6 +27,7 @@ type ShowDetails = {
         name: string,
         status: string,
         premiered: string,
+        genres: Array<string>,
         ended: string,
         rating: { average: number }
     },
@@ -40,7 +41,7 @@ const cleanHTMLTags = (input: string) => input.replace(/<\/?[^>]+(>|$)/g, "");
 
 export const ShowDetails = () => {
     const { showDetails, showSeasons: seasons } = useLoaderData() as ShowDetails
-    const { name, summary, image, rating, status, premiered, ended } = showDetails
+    const { name, summary, image, rating, status, premiered, ended, genres } = showDetails
 
     return (
         <>
@@ -51,6 +52,7 @@ export const ShowDetails = () => {
                     </div>
                     <div className="col-10 col-sm-12" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                         <p style={{ margin: 0, fontSize: 20 }}>{name} - Rating {rating.average}</p>
+                        <p style={{ margin: 0, fontSize: 16 }}>Genres: {genres.join(', ')}</p>
                         <p style={{ margin: 0, paddingTop: 8, paddingBottom: 16 }}>Seasons {seasons.length} - Airing {dayjs(premiered).format('DD MMM YYYY')} to {ended ? dayjs(ended).format('DD MMM YYYY') : status}</p>
                         <p style={{ margin: 0 }}>{cleanHTMLTags(summary)}</p>
                     </div>
