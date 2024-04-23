@@ -1,5 +1,11 @@
 import { useLoaderData } from 'react-router-dom'
 import { MovieCard } from "./components/movie-card"
+import { fetchAPI } from './api/fetch'
+
+export const showsLoader = async () => {
+    const shows = await fetchAPI({ url: 'https://api.tvmaze.com/shows', init: { method: 'GET' } })
+    return { shows }
+}
 
 type ShowProps = {
     shows: Array<{

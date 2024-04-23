@@ -1,290 +1,112 @@
-import { useParams } from "react-router-dom"
+import { LoaderFunctionArgs, useLoaderData } from "react-router-dom"
 import dayjs from 'dayjs'
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 
 import { ShowDetailsCard } from "./components/show-details-card"
 import './css/_grid.scss'
-import defaultPoster from './assets/poster.jpg'
+import { fetchAPI } from "./api/fetch"
+import defaultEpisodeImage from './assets/episode-image.jpg'
+import defaultShowImage from './assets/show-image.jpg'
+
+export const showDetailsLoader = async ({ params }: LoaderFunctionArgs<{ params: { showId: number } }>) => {
+    const showDetails = await fetchAPI({ url: `https://api.tvmaze.com/shows/${params.showId}`, init: { method: 'GET' } })
+    const showSeasons = await fetchAPI({ url: `https://api.tvmaze.com/shows/${params.showId}/seasons`, init: { method: 'GET' } })
+
+    console.log('show seasons are: ', showSeasons)
+    return { showDetails, showSeasons: showSeasons }
+}
+
+type ShowDetails = {
+    showDetails: {
+        image?: { medium?: string },
+        summary: string,
+        name: string,
+        status: string,
+        premiered: string,
+        ended: string,
+        rating: { average: number }
+    },
+    showSeasons: Array<{
+        number: number,
+        id: number
+    }>
+}
+
+const cleanHTMLTags = (input: string) => input.replace(/<\/?[^>]+(>|$)/g, "");
 
 export const ShowDetails = () => {
-    const { showId } = useParams()
-    const { title, seasons, premiered, ended, status, summary } = show
+    const { showDetails, showSeasons: seasons } = useLoaderData() as ShowDetails
+    const { name, summary, image, rating, status, premiered, ended } = showDetails
 
-    const [season, setSeason] = useState(1)
-    const onChangeSeason = (e: ChangeEvent<HTMLSelectElement>) => setSeason(Number(e.target.value))
     return (
         <>
             <div className="container">
                 <div className="row" style={{ marginTop: 42, marginBottom: 42 }}>
                     <div className="col-sm-12">
-                        <img src={defaultPoster} width={200} height={300} style={{ borderRadius: 8 }} />
+                        <img src={image?.medium || defaultShowImage} width={200} height={300} style={{ borderRadius: 8 }} />
                     </div>
                     <div className="col-10 col-sm-12" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                        <p style={{ margin: 0 }}><b>{title}</b></p>
-                        <p style={{ margin: 0, paddingTop: 8, paddingBottom: 16 }}><b>Seasons {seasons} - Airing {dayjs(premiered).format('DD MMM YYYY')} to {dayjs(ended).format('DD MMM YYYY') || status}</b></p>
-                        <p style={{ margin: 0 }}>{summary}</p>
+                        <p style={{ margin: 0, fontSize: 20 }}>{name} - Rating {rating.average}</p>
+                        <p style={{ margin: 0, paddingTop: 8, paddingBottom: 16 }}>Seasons {seasons.length} - Airing {dayjs(premiered).format('DD MMM YYYY')} to {dayjs(ended).format('DD MMM YYYY') || status}</p>
+                        <p style={{ margin: 0 }}>{cleanHTMLTags(summary)}</p>
                     </div>
                 </div>
             </div>
-            <div className="container">
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <h1 style={{ margin: 0 }}>Episodes</h1>
-                    <select
-                        name="seasons"
-                        value={season}
-                        onChange={onChangeSeason}
-                        style={{ maxHeight: 20, marginLeft: 30 }}
-                    >
-                        <option value="1">Season 1</option>
-                        <option value="2">Season 2</option>
-                        <option value="3">Season 3</option>
-                        <option value="4">Season 4</option>
-                        <option value="5">Season 5</option>
-                    </select>
-                </div>
-                {episodes(season).map(({ season, title, summary, id, duration }) =>
-                    <ShowDetailsCard
-                        key={id}
-                        title={title}
-                        season={season}
-                        id={id}
-                        duration={duration}
-                        summary={summary}
-                    />
-                )}
-            </div>
+            <EpisodesBySeason seasons={seasons} />
         </>
     )
 }
 
-const show = {
-    "title": "Breaking Bad",
-    "seasons": 5,
-    "premiered": "2008-01-20T00:00:00Z",
-    "ended": "2013-09-29T00:00:00Z",
-    "status": "Ended",
-    "summary": "Breaking Bad follows protagonist Walter White, a chemistry teacher who lives in New Mexico with his wife and teenage son who has cerebral palsy. White is diagnosed with Stage III cancer and given a prognosis of two years left to live. With a new sense of fearlessness based on his medical prognosis, and a desire to secure his family's financial security, White chooses to enter a dangerous world of drugs and crime and ascends to power in the world of methamphetamine production. The series explores how a fatal diagnosis such as White's releases a typical man from the daily concerns and constraints of normal society and follows his transformation from mild family man to a kingpin of the drug trade."
+type EpisodeProps = {
+    name: string,
+    number: number,
+    season: number,
+    id: number,
+    runtime: number,
+    summary: string,
+    image?: { medium?: string },
+}
+const EpisodesBySeason = ({ seasons }: { seasons: ShowDetails['showSeasons'] }) => {
+    const [season, setSeason] = useState(seasons[0].id)
+    const onChangeSeason = (e: ChangeEvent<HTMLSelectElement>) => setSeason(Number(e.target.value))
+
+    const [episodes, setEpisodes] = useState<EpisodeProps[] | []>([])
+
+    useEffect(() => {
+        const fetchEpisodes = async () => {
+            const episodes = await fetchAPI({ url: `https://api.tvmaze.com/seasons/${season}/episodes`, init: { method: 'GET' } })
+            setEpisodes(episodes)
+        }
+        fetchEpisodes()
+    }, [season])
+
+    return (
+        <div className="container">
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                <h1 style={{ margin: 0 }}>Episodes</h1>
+                <select
+                    name="seasons"
+                    value={season}
+                    onChange={onChangeSeason}
+                    style={{ maxHeight: 20, marginLeft: 30 }}
+                >
+                    {seasons.map(({ id }, idx) =>
+                        <option key={idx} value={`${id}`}>Season {idx + 1}</option>
+                    )}
+                </select>
+            </div>
+            {episodes.map(({ name, number, season, id, runtime, summary, image }) =>
+                <ShowDetailsCard
+                    key={id}
+                    number={number}
+                    imageURL={image?.medium || defaultEpisodeImage}
+                    title={name}
+                    season={season}
+                    duration={runtime}
+                    summary={cleanHTMLTags(summary)}
+                />
+            )}
+        </div >
+    )
 }
 
-const episodes = (season: number) => [
-    {
-        "id": 1,
-        "title": "The Mystery of the Lost Key",
-        "season": season,
-        "duration": 50,
-        "airdate": "2024-04-22T18:00:00Z",
-        "summary": "A key disappears. A mystery unfolds. Detective Smith is on the case. Will she crack it in time? Follow the clues, uncover the truth, and experience the thrill of solving The Mystery of the Lost Key.",
-        "writer": "Alex Johnson",
-        "director": "Emily Smith",
-        "rating": 4.5
-    },
-    {
-        "id": 2,
-        "title": "Into the Unknown",
-        "season": season,
-        "duration": 45,
-        "airdate": "2024-04-23T19:00:00Z",
-        "summary": "A group of adventurers embarks on a perilous journey into uncharted territories, facing dangers at every turn. Will they conquer the unknown or succumb to its mysteries? Discover the answers in Into the Unknown.",
-        "writer": "Michael Brown",
-        "director": "Sarah Thompson",
-        "rating": 4.2
-    },
-    {
-        "id": 3,
-        "title": "The Haunted Mansion",
-        "season": season,
-        "duration": 55,
-        "airdate": "2024-04-24T20:00:00Z",
-        "summary": "A family moves into a mansion with a dark past, only to discover it's haunted by vengeful spirits. As the mysteries unravel and the hauntings escalate, they must confront their fears or be consumed by The Haunted Mansion.",
-        "writer": "Jennifer Lee",
-        "director": "David Garcia",
-        "rating": 4.7
-    },
-    {
-        "id": 4,
-        "title": "Secrets of the Forest",
-        "season": season,
-        "duration": 48,
-        "airdate": "2024-04-25T21:00:00Z",
-        "summary": "Deep in the forest lies hidden treasures and ancient mysteries waiting to be uncovered. Join the expedition as they navigate through the Secrets of the Forest, where every discovery brings new adventures.",
-        "writer": "Daniel White",
-        "director": "Sophia Rodriguez",
-        "rating": 4.0
-    },
-    {
-        "id": 5,
-        "title": "The Curse of Blackwater Manor",
-        "season": season,
-        "duration": 52,
-        "airdate": "2024-04-26T22:00:00Z",
-        "summary": "An old curse reawakens when a family inherits an eerie manor, leading to a battle against evil forces. Can they break the curse before it consumes them? Experience The Curse of Blackwater Manor to find out.",
-        "writer": "Emma Wilson",
-        "director": "James Brown",
-        "rating": 4.8
-    },
-    {
-        "id": 6,
-        "title": "Under the Starlit Sky",
-        "season": season,
-        "duration": 55,
-        "airdate": "2024-04-27T23:00:00Z",
-        "summary": "A romantic drama unfolds beneath the twinkling stars, exploring love and destiny. Follow the journey of two souls as they navigate the complexities of relationships Under the Starlit Sky.",
-        "writer": "Olivia Green",
-        "director": "Michael Clark",
-        "rating": 4.3
-    },
-    {
-        "id": 7,
-        "title": "Echoes from the Past",
-        "season": season,
-        "duration": 50,
-        "airdate": "2024-04-28T00:00:00Z",
-        "summary": "The ghosts of history come alive as a group of historians delve into forgotten tales. Explore the echoes of the past and uncover hidden truths in Echoes from the Past.",
-        "writer": "Ryan Taylor",
-        "director": "Jessica Martinez",
-        "rating": 4.6
-    },
-    {
-        "id": 8,
-        "title": "The Final Confrontation",
-        "season": season,
-        "duration": 45,
-        "airdate": "2024-04-29T01:00:00Z",
-        "summary": "The ultimate battle between good and evil reaches its climax, determining the fate of the world. Brace yourself for The Final Confrontation, where heroes rise and villains fall in the epic struggle for supremacy.",
-        "writer": "Sophie Adams",
-        "director": "William Johnson",
-        "rating": 4.9
-    },
-    {
-        "id": 9,
-        "title": "Lost in Time",
-        "season": season,
-        "duration": 58,
-        "airdate": "2024-04-30T02:00:00Z",
-        "summary": "A time-traveling adventure takes a group of friends on a journey through history's most pivotal moments. Witness the chaos and the beauty as they become Lost in Time.",
-        "writer": "Jacob Roberts",
-        "director": "Emily Turner",
-        "rating": 4.4
-    },
-    {
-        "id": 10,
-        "title": "The Enigma of the Missing Artifact",
-        "season": season,
-        "duration": 50,
-        "airdate": "2024-05-01T03:00:00Z",
-        "summary": "A museum heist unveils a larger conspiracy, leading detectives on a chase to recover a priceless artifact. Dive into The Enigma of the Missing Artifact and unravel the mystery before time runs out.",
-        "writer": "Charlotte Brown",
-        "director": "Andrew Wilson",
-        "rating": 4.7
-    },
-    {
-        "id": 11,
-        "title": "Whispers in the Dark",
-        "season": season,
-        "duration": 45,
-        "airdate": "2024-05-02T04:00:00Z",
-        "summary": "Strange occurrences plague a small town, hinting at dark secrets hidden within its shadows. Listen closely to the Whispers in the Dark, for they hold the key to unlocking the town's sinister past.",
-        "writer": "Lucas Parker",
-        "director": "Sophia White",
-        "rating": 4.2
-    },
-    {
-        "id": 12,
-        "title": "The Island of Eternal Youth",
-        "season": season,
-        "duration": 55,
-        "airdate": "2024-05-03T05:00:00Z",
-        "summary": "Legends come to life as a group of adventurers discovers a mystical island where time stands still. Join the journey to The Island of Eternal Youth, where dreams never fade and youth knows no bounds.",
-        "writer": "Ethan Martin",
-        "director": "Natalie Garcia",
-        "rating": 4.6
-    },
-    {
-        "id": 13,
-        "title": "A Dance with Destiny",
-        "season": season,
-        "duration": 48,
-        "airdate": "2024-05-04T06:00:00Z",
-        "summary": "Love, passion, and betrayal intertwine as dancers vie for success in the competitive world of ballroom. Experience the drama and the elegance in A Dance with Destiny.",
-        "writer": "Ava Robinson",
-        "director": "Daniel Clark",
-        "rating": 4.3
-    },
-    {
-        "id": 14,
-        "title": "Shadows of the Past",
-        "season": season,
-        "duration": 52,
-        "airdate": "2024-05-05T07:00:00Z",
-        "summary": "A detective's past comes back to haunt him as he investigates a series of gruesome murders. Follow the shadows of the past to uncover the truth in Shadows of the Past.",
-        "writer": "Liam Wilson",
-        "director": "Emma Thompson",
-        "rating": 4.8
-    },
-    {
-        "id": 15,
-        "title": "The Forbidden Forest",
-        "season": season,
-        "duration": 55,
-        "airdate": "2024-05-06T08:00:00Z",
-        "summary": "A young hero braves the dangers of the forbidden forest in search of a legendary artifact. Dive into the depths of The Forbidden Forest and discover the power of courage.",
-        "writer": "Mia Harris",
-        "director": "Jacob Martinez",
-        "rating": 4.5
-    },
-    {
-        "id": 16,
-        "title": "Echoes of War",
-        "season": season,
-        "duration": 50,
-        "airdate": "2024-05-07T09:00:00Z",
-        "summary": "The scars of war run deep as soldiers struggle to find peace in the aftermath of battle. Listen to the Echoes of War and witness the resilience of the human spirit.",
-        "writer": "Noah Thompson",
-        "director": "Sophie Parker",
-        "rating": 4.1
-    },
-    {
-        "id": 17,
-        "title": "The Whispering Woods",
-        "season": season,
-        "duration": 45,
-        "airdate": "2024-05-08T10:00:00Z",
-        "summary": "A journey through the mystical woods leads to encounters with magical creatures and ancient spirits. Hear the whispers of The Whispering Woods and unlock the secrets of nature.",
-        "writer": "Isabella Johnson",
-        "director": "Ethan Brown",
-        "rating": 4.4
-    },
-    {
-        "id": 18,
-        "title": "The Phantom's Revenge",
-        "season": season,
-        "duration": 55,
-        "airdate": "2024-05-09T11:00:00Z",
-        "summary": "A masked vigilante seeks vengeance against those who wronged him, striking fear into the hearts of criminals. Witness The Phantom's Revenge and the price of justice.",
-        "writer": "William Garcia",
-        "director": "Olivia Taylor",
-        "rating": 4.7
-    },
-    {
-        "id": 19,
-        "title": "Lost Souls",
-        "season": season,
-        "duration": 48,
-        "airdate": "2024-05-10T12:00:00Z",
-        "summary": "Ghosts of the past haunt a forgotten town, revealing tragic tales of lost love and broken dreams. Search for redemption in the souls that wander through Lost Souls.",
-        "writer": "Jack Robinson",
-        "director": "Emily Harris",
-        "rating": 4.3
-    },
-    {
-        "id": 20,
-        "title": "The Midnight Carnival",
-        "season": season,
-        "duration": 52,
-        "airdate": "2024-05-11T13:00:00Z",
-        "summary": "A mysterious carnival arrives in town, promising thrills and chills under the moonlit sky. Explore the wonders and the terrors of The Midnight Carnival.",
-        "writer": "Sophia Turner",
-        "director": "Lucas Adams",
-        "rating": 4.6
-    }
-]

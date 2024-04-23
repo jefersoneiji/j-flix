@@ -1,14 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import { App } from "./App";
-import { Home } from "./home";
-import { ShowDetails } from "./show-details";
-import { fetchAPI } from "./api/fetch";
-
-const showsLoader = async () => {
-    const shows = await fetchAPI({ url: 'https://api.tvmaze.com/shows', init: { method: 'GET' } })
-    return { shows }
-}
+import { Home, showsLoader } from "./home";
+import { ShowDetails, showDetailsLoader } from "./show-details";
 
 export const router = createBrowserRouter([
     {
@@ -22,7 +16,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/show/:showId',
-                element: <ShowDetails />
+                element: <ShowDetails />,
+                loader: showDetailsLoader
             }
         ]
     },
