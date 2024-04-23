@@ -7,13 +7,17 @@ import './css/_grid.scss'
 import { fetchAPI } from "./api/fetch"
 import defaultEpisodeImage from './assets/episode-image.jpg'
 import defaultShowImage from './assets/show-image.jpg'
+import { errorHandler } from "./api/error-handler"
 
 export const showDetailsLoader = async ({ params }: LoaderFunctionArgs<{ params: { showId: number } }>) => {
     const showDetails = await fetchAPI({ url: `https://api.tvmaze.com/shows/${params.showId}`, init: { method: 'GET' } })
     const showSeasons = await fetchAPI({ url: `https://api.tvmaze.com/shows/${params.showId}/seasons`, init: { method: 'GET' } })
 
-    console.log('show seasons are: ', showSeasons)
+    await errorHandler(showDetails)
+    await errorHandler(showSeasons)
+
     return { showDetails, showSeasons: showSeasons }
+
 }
 
 type ShowDetails = {
@@ -47,7 +51,7 @@ export const ShowDetails = () => {
                     </div>
                     <div className="col-10 col-sm-12" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                         <p style={{ margin: 0, fontSize: 20 }}>{name} - Rating {rating.average}</p>
-                        <p style={{ margin: 0, paddingTop: 8, paddingBottom: 16 }}>Seasons {seasons.length} - Airing {dayjs(premiered).format('DD MMM YYYY')} to {dayjs(ended).format('DD MMM YYYY') || status}</p>
+                        <p style={{ margin: 0, paddingTop: 8, paddingBottom: 16 }}>Seasons {seasons.length} - Airing {dayjs(premiered).format('DD MMM YYYY')} to {ended ? dayjs(ended).format('DD MMM YYYY') : status}</p>
                         <p style={{ margin: 0 }}>{cleanHTMLTags(summary)}</p>
                     </div>
                 </div>
@@ -103,7 +107,7 @@ const EpisodesBySeason = ({ seasons }: { seasons: ShowDetails['showSeasons'] }) 
                     title={name}
                     season={season}
                     duration={runtime}
-                    summary={cleanHTMLTags(summary)}
+                    summary={cleanHTMLTags(summary || '')}
                 />
             )}
         </div >
