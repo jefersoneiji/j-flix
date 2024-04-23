@@ -1,5 +1,13 @@
 import { useLoaderData } from 'react-router-dom'
 import { MovieCard } from "./components/movie-card"
+import { fetchAPI } from './api/fetch'
+import { errorHandler } from './api/error-handler'
+
+export const showsLoader = async () => {
+    const shows = await fetchAPI({ url: 'https://apis.tvmaze.com/shows', init: { method: 'GET' } })
+    await errorHandler(shows)
+    return { shows }
+}
 
 type ShowProps = {
     shows: Array<{
@@ -12,7 +20,6 @@ type ShowProps = {
 
 export const Home = () => {
     const { shows } = useLoaderData() as ShowProps
-
     return (
         <div className='container'>
             <div className='row'>

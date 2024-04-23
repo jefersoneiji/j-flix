@@ -1,4 +1,3 @@
-import defaultEpisodeImage from '../assets/episode-image.jpg'
 import '../css/_grid.scss'
 
 type ShowDetailProps = {
@@ -6,14 +5,15 @@ type ShowDetailProps = {
     summary: string,
     duration: number,
     season: number,
-    id: number
+    number: number,
+    imageURL: string
 }
-export const ShowDetailsCard = ({ season, id, title, summary, duration }: ShowDetailProps) => {
+export const ShowDetailsCard = ({ imageURL, season, number, title, summary, duration }: ShowDetailProps) => {
     return (
         <div className='row'>
             <div className='col-md-12 col-sm-12'>
                 <img
-                    src={defaultEpisodeImage}
+                    src={imageURL}
                     width={213}
                     height={119}
                     style={{
@@ -23,7 +23,7 @@ export const ShowDetailsCard = ({ season, id, title, summary, duration }: ShowDe
                 />
             </div>
             <div className='col-10 col-md-12 col-sm-12' style={{ paddingLeft: 16 }} >
-                <p><b>S{season}.EP{id} - {title}</b></p>
+                <p><b>S{season}.EP{number} - {title}</b></p>
                 <p>{duration} mins</p>
                 <p>{summary}</p>
             </div>

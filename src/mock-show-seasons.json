@@ -1,0 +1,92 @@
+[
+    {
+        "id": 7,
+        "url": "https://www.tvmaze.com/seasons/7/bitten-season-1",
+        "number": 1,
+        "name": "",
+        "episodeOrder": 13,
+        "premiereDate": "2014-01-11",
+        "endDate": "2014-04-05",
+        "network": {
+            "id": 7,
+            "name": "CTV Sci-Fi Channel",
+            "country": {
+                "name": "Canada",
+                "code": "CA",
+                "timezone": "America/Halifax"
+            },
+            "officialSite": "https://www.ctv.ca/sci-fi"
+        },
+        "webChannel": null,
+        "image": {
+            "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/45/113621.jpg",
+            "original": "https://static.tvmaze.com/uploads/images/original_untouched/45/113621.jpg"
+        },
+        "summary": "",
+        "_links": {
+            "self": {
+                "href": "https://api.tvmaze.com/seasons/7"
+            }
+        }
+    },
+    {
+        "id": 4382,
+        "url": "https://www.tvmaze.com/seasons/4382/bitten-season-2",
+        "number": 2,
+        "name": "",
+        "episodeOrder": 10,
+        "premiereDate": "2015-02-07",
+        "endDate": "2015-04-11",
+        "network": {
+            "id": 7,
+            "name": "CTV Sci-Fi Channel",
+            "country": {
+                "name": "Canada",
+                "code": "CA",
+                "timezone": "America/Halifax"
+            },
+            "officialSite": "https://www.ctv.ca/sci-fi"
+        },
+        "webChannel": null,
+        "image": {
+            "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/45/113622.jpg",
+            "original": "https://static.tvmaze.com/uploads/images/original_untouched/45/113622.jpg"
+        },
+        "summary": "",
+        "_links": {
+            "self": {
+                "href": "https://api.tvmaze.com/seasons/4382"
+            }
+        }
+    },
+    {
+        "id": 28262,
+        "url": "https://www.tvmaze.com/seasons/28262/bitten-season-3",
+        "number": 3,
+        "name": "",
+        "episodeOrder": 10,
+        "premiereDate": "2016-02-12",
+        "endDate": "2016-04-15",
+        "network": {
+            "id": 7,
+            "name": "CTV Sci-Fi Channel",
+            "country": {
+                "name": "Canada",
+                "code": "CA",
+                "timezone": "America/Halifax"
+            },
+            "officialSite": "https://www.ctv.ca/sci-fi"
+        },
+        "webChannel": null,
+        "image": {
+            "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/45/113623.jpg",
+            "original": "https://static.tvmaze.com/uploads/images/original_untouched/45/113623.jpg"
+        },
+        "summary": "",
+        "_links": {
+            "self": {
+                "href": "https://api.tvmaze.com/seasons/28262"
+            }
+        }
+    }
+]
