@@ -3,7 +3,7 @@ run-name: netlify workflow
 on: 
   push:
    branches: 
-    - main
+    - master
 jobs: 
    Frontend:
         runs-on: ubuntu-latest
