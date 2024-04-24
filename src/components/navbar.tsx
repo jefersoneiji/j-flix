@@ -11,7 +11,7 @@ export const Navbar = () => {
 
     const onShow = () => setShow(prev => !prev)
     return (
-        <header>
+        <header className='navbar'>
             <nav className="nav-container">
                 <Link to={'/'} className='navbar-brand nav-link subtitle' style={{fontSize:26}}>
                     JFlix
