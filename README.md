@@ -50,6 +50,10 @@ Execute the following command:
 yarn lint
 ```
 
+## Deploying
+
+Deploy to netlify is done through github actions. The app is only deployed after all tests are green. See: [deploy-workflow](.github/workflows/deploy.yml)
+
 ## Colocation
 
 By following the principle of colocation, requests, styles and tests are placed as closer as possible to each other. Meaning, that requests may be found in the same file (or folder) containing tests and styles. 
