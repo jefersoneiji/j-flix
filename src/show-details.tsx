@@ -39,7 +39,11 @@ type ShowDetails = {
     }>
 }
 
-const cleanHTMLTags = (input: string) => input.replace(/<\/?[^>]+(>|$)/g, "");
+const cleanHTMLTags = (input: string, truncate: boolean = true) => {
+    const cleaned = input.replace(/<\/?[^>]+(>|$)/g, "")
+    const truncated = cleaned.length > 500 && truncate ? cleaned.slice(0, 500) + "..." : cleaned
+    return truncated
+};
 
 export const ShowDetails = () => {
     const { showDetails, showSeasons: seasons } = useLoaderData() as ShowDetails
@@ -56,7 +60,7 @@ export const ShowDetails = () => {
                         <p className="header" style={{ margin: 0, fontSize: 20 }}>{name} - Rating {rating.average}</p>
                         <p className="subtitle" style={{ margin: 0, fontSize: 16, paddingTop: 8 }}>Genres: {genres.join(', ')}</p>
                         <p className="subtitle" style={{ margin: 0, paddingTop: 0, paddingBottom: 16 }}>Seasons {seasons.length} - Airing {dayjs(premiered).format('DD MMM YYYY')} to {ended ? dayjs(ended).format('DD MMM YYYY') : status}</p>
-                        <p className="regular-text" style={{ margin: 0 }}>{cleanHTMLTags(summary)}</p>
+                        <p className="regular-text" style={{ margin: 0 }}>{cleanHTMLTags(summary, false)}</p>
                     </div>
                 </div>
             </div>
