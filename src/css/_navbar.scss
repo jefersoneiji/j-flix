@@ -18,6 +18,7 @@
 .navbar-brand {
     text-decoration: none;
     white-space: nowrap;
+    color: v.$netflix-red !important;
 }
 
 .navbar-nav {
@@ -40,7 +41,7 @@
 
 .nav-link {
     text-decoration: none;
-    color: black;
+    color: v.$white;
 }
 
 @media only screen and (min-width: v.$xs) and (max-width:v.$md) {
