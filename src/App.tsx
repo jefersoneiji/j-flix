@@ -6,8 +6,10 @@ import './css/_grid.scss'
 export function App() {
   return (
     <div className='canvas'>
-      <Navbar />
-      <Outlet />
+      <div className='inner-board'>
+        <Navbar />
+        <Outlet />
+      </div>
     </div>
   )
 }

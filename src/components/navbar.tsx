@@ -13,7 +13,7 @@ export const Navbar = () => {
     return (
         <header>
             <nav className="nav-container">
-                <Link to={'/'} className='navbar-brand nav-link subtitle'>
+                <Link to={'/'} className='navbar-brand nav-link subtitle' style={{fontSize:26}}>
                     JFlix
                 </Link>
                 {shrink && show &&

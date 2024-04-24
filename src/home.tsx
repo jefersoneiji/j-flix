@@ -22,6 +22,7 @@ export const Home = () => {
     const { shows } = useLoaderData() as ShowProps
     return (
         <div className='container'>
+            <h1 className='header'>TV Shows</h1>
             <div className='row'>
                 {shows.slice(0, 50).map(({ id, image }) =>
                     <div key={id} className='col-2 col-md-3 col-sm-6' style={{ display: 'flex', justifyContent: 'center' }}>
