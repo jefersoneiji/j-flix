@@ -4,6 +4,8 @@ import { ChangeEvent, useEffect, useState } from "react"
 
 import { ShowDetailsCard } from "./components/show-details-card"
 import './css/_grid.scss'
+import './css/_fonts.scss'
+
 import { fetchAPI } from "./api/fetch"
 import defaultEpisodeImage from './assets/episode-image.jpg'
 import defaultShowImage from './assets/show-image.jpg'
@@ -51,10 +53,10 @@ export const ShowDetails = () => {
                         <img src={image?.medium || defaultShowImage} width={200} height={300} style={{ borderRadius: 8 }} />
                     </div>
                     <div className="col-10 col-sm-12" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                        <p style={{ margin: 0, fontSize: 20 }}>{name} - Rating {rating.average}</p>
-                        <p style={{ margin: 0, fontSize: 16 }}>Genres: {genres.join(', ')}</p>
-                        <p style={{ margin: 0, paddingTop: 8, paddingBottom: 16 }}>Seasons {seasons.length} - Airing {dayjs(premiered).format('DD MMM YYYY')} to {ended ? dayjs(ended).format('DD MMM YYYY') : status}</p>
-                        <p style={{ margin: 0 }}>{cleanHTMLTags(summary)}</p>
+                        <p className="header" style={{ margin: 0, fontSize: 20 }}>{name} - Rating {rating.average}</p>
+                        <p className="subtitle" style={{ margin: 0, fontSize: 16, paddingTop: 8 }}>Genres: {genres.join(', ')}</p>
+                        <p className="subtitle" style={{ margin: 0, paddingTop: 0, paddingBottom: 16 }}>Seasons {seasons.length} - Airing {dayjs(premiered).format('DD MMM YYYY')} to {ended ? dayjs(ended).format('DD MMM YYYY') : status}</p>
+                        <p className="regular-text" style={{ margin: 0 }}>{cleanHTMLTags(summary)}</p>
                     </div>
                 </div>
             </div>
@@ -89,7 +91,7 @@ const EpisodesBySeason = ({ seasons }: { seasons: ShowDetails['showSeasons'] }) 
     return (
         <div className="container">
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                <h1 style={{ margin: 0 }}>Episodes</h1>
+                <h1 className="header" style={{ margin: 0 }}>Episodes</h1>
                 <select
                     name="seasons"
                     value={season}
