@@ -1,30 +1,88 @@
-# React + TypeScript + Vite
+<h1 align="center">
+    JFlix
+</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h4 align="center">
+    TV Shows navigator
+</h4>
 
-Currently, two official plugins are available:
+<div align="center">
+  <img  alt="policy-diagram" src="./src/assets/jflix-demo.gif">
+</div>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Summary 
 
-## Expanding the ESLint configuration
+This web app is able to navigate throw TV Shows, display its seasons and information about shows/seasons/episodes.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Prerequisites
 
-- Configure the top-level `parserOptions` property like this:
+For this project to run, make sure these software are installed:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- [nodejs](https://nodejs.org/en/download/current)
+    
+## Installing
+
+To run locally:
+1. Clone this repo
+   ```cmd
+   git@github.com:jefersoneiji/j-flix.git
+   ```
+
+2. Install dependencies in your machine
+   ```cmd
+   yarn install
+   ```
+
+3. Start the front
+    ```cmd
+    yarn dev
+    ```
+
+## Testing
+
+Execute the following command:
+   ```cmd
+   yarn test
+   ```
+## Linting 
+
+```shell
+yarn lint
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Colocation
+
+By following the principle of colocation, requests, styles and tests are placed as closer as possible to each other. Meaning, that requests may be found in the same file (or folder) containing tests and styles. 
+
+Example: In `home.tsx` the data loader is inside the home component itself. 
+
+## Components 
+
+### `<Navbar />`
+  Displays navigation bar
+
+### `<Home />`
+  Displays all TV Shows
+
+### `<ShowDetails/>`
+  Displays specific show info and episodes by season
+
+## API Fetching
+
+### Fetching
+
+Requests are done through the Fetch API. See [featchAPI](./src/api/fetch.ts)
+
+### Error Handling
+
+Errors are handled in two levels:
+1.  inside the [featchAPI](./src/api/fetch.ts) or 
+2.  inside the component itself through an [error handler](./src/api/error-handler.ts). See: [home](./src/home.tsx) `showsLoader()`
+
+## Future Improvements
+
+- Add storybook to project
+- Add more animation to components
+- Increase edge cases coverage in tests
+
+Made by Jeferson Eiji ➡️ [Get in touch!](https://www.linkedin.com/in/jeferson-eiji/)
