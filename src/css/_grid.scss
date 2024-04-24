@@ -47,31 +47,26 @@ body {
 @media only screen and (min-width: v.$xs) and (max-width:v.$sm) {
     .col-sm-12 {
         grid-column: auto/ span 12;
-        border: 1px solid brown;
     }
 
     .col-sm-6 {
         grid-column: auto/ span 6;
-        border: 1px solid brown;
     }
 }
 
 @media only screen and (min-width: v.$sm) and (max-width:v.$md) {
     .col-md-12 {
         grid-column: auto/ span 12;
-        border: 1px solid green;
     }
 
     .col-md-3 {
         grid-column: auto/ span 3;
-        border: 1px solid green;
     }
 }
 
 @media only screen and (min-width: v.$md) and (max-width: v.$lg) {
     .col-lg-4 {
         grid-column: auto/ span 4;
-        border: 1px solid blue;
     }
 }
 
