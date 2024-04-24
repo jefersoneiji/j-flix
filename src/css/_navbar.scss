@@ -12,12 +12,14 @@
 }
 
 .nav-container {
-    display: flex
+    display: flex;
+    align-items: baseline;
 }
 
 .navbar-brand {
     text-decoration: none;
     white-space: nowrap;
+    color: v.$netflix-red !important;
 }
 
 .navbar-nav {
@@ -40,7 +42,7 @@
 
 .nav-link {
     text-decoration: none;
-    color: black;
+    color: v.$white;
 }
 
 @media only screen and (min-width: v.$xs) and (max-width:v.$md) {
@@ -59,6 +61,7 @@
     .nav-container {
         display: flex;
         flex-direction: column;
+        align-items: start;
         width: 100%;
     }
 

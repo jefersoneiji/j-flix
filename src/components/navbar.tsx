@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import '../css/_navbar.scss'
+
 import { useShrink } from '../utils/useShrink'
 
 export const Navbar = () => {
@@ -12,7 +13,7 @@ export const Navbar = () => {
     return (
         <header>
             <nav className="nav-container">
-                <Link to={'/'} className='navbar-brand nav-link'>
+                <Link to={'/'} className='navbar-brand nav-link subtitle' style={{fontSize:26}}>
                     JFlix
                 </Link>
                 {shrink && show &&
@@ -37,7 +38,7 @@ const NavItems = () => {
         <ul className='navbar-nav'>
             {items.map(({ path, label }, idx) =>
                 <li key={idx} className='nav-item'>
-                    <Link to={path} className='nav-link'>
+                    <Link to={path} className='nav-link subtitle'>
                         {label}
                     </Link>
                 </li>
@@ -48,6 +49,4 @@ const NavItems = () => {
 
 const items = [
     { path: '/', label: 'Home' },
-    { path: '/', label: 'About' },
-    { path: '/', label: 'Login' },
 ]

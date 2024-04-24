@@ -5,3 +5,41 @@ $md: 768px;
 $lg: 992px;
 $xl: 1200px;
 $xxl: 1400px;
+
+// colors 
+$black: #000000;
+$white: #FFFFFF;
+$netflix-red: #e50914;
+
+// font types
+@font-face {
+    font-family: "Netflix Sans";
+    src: url('/src/assets/fonts/NetflixSans-Regular.woff2') format('woff2'),
+        url('/src/assets/fonts/NetflixSans-Regular.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Netflix Sans";
+    src: url('/src/assets/fonts/NetflixSans-Bold.woff2') format('woff2'),
+        url('/src/assets/fonts/NetflixSans-Regular.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Netflix Sans";
+    src: url('/src/assets/fonts/NetflixSans-Light.woff2') format('woff2'),
+        url('/src/assets/fonts/NetflixSans-Light.otf') format('opentype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Netflix Sans";
+    src: url('/src/assets/fonts/NetflixSans-Medium.woff2') format('woff2'),
+        url('/src/assets/fonts/NetflixSans-Medium.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}

@@ -23,9 +23,9 @@ export const ShowDetailsCard = ({ imageURL, season, number, title, summary, dura
                 />
             </div>
             <div className='col-10 col-md-12 col-sm-12' style={{ paddingLeft: 16 }} >
-                <p><b>S{season}.EP{number} - {title}</b></p>
-                <p>{duration} mins</p>
-                <p>{summary}</p>
+                <p className='header'><b>S{season}.EP{number} - {title}</b></p>
+                <p className='subtitle'>{duration} mins</p>
+                <p className='regular-text'>{summary}</p>
             </div>
         </div>
     )

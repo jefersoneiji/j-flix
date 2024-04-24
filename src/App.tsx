@@ -5,9 +5,11 @@ import './css/_grid.scss'
 
 export function App() {
   return (
-    <>
-      <Navbar />
-      <Outlet/>
-    </>
+    <div className='canvas'>
+      <div className='inner-board'>
+        <Navbar />
+        <Outlet />
+      </div>
+    </div>
   )
 }
