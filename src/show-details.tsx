@@ -12,8 +12,8 @@ import defaultShowImage from './assets/show-image.jpg'
 import { errorHandler } from "./api/error-handler"
 
 export const showDetailsLoader = async ({ params }: LoaderFunctionArgs<{ params: { showId: number } }>) => {
-    const showDetails = await fetchAPI({ url: `https://api.tvmaze.com/shows/${params.showId}`, init: { method: 'GET' } })
-    const showSeasons = await fetchAPI({ url: `https://api.tvmaze.com/shows/${params.showId}/seasons`, init: { method: 'GET' } })
+    const showDetails = await fetchAPI({ url: `/shows/${params.showId}`, init: { method: 'GET' } })
+    const showSeasons = await fetchAPI({ url: `/shows/${params.showId}/seasons`, init: { method: 'GET' } })
 
     await errorHandler(showDetails)
     await errorHandler(showSeasons)
@@ -86,7 +86,7 @@ const EpisodesBySeason = ({ seasons }: { seasons: ShowDetails['showSeasons'] }) 
 
     useEffect(() => {
         const fetchEpisodes = async () => {
-            const episodes = await fetchAPI({ url: `https://api.tvmaze.com/seasons/${season}/episodes`, init: { method: 'GET' } })
+            const episodes = await fetchAPI({ url: `/seasons/${season}/episodes`, init: { method: 'GET' } })
             setEpisodes(episodes)
         }
         fetchEpisodes()

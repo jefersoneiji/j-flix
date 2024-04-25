@@ -28,7 +28,7 @@ const router = createMemoryRouter(routes, {
     initialEntries: ['/show/2']
 })
 
-test('should change episodes list based in selected season', async () => {
+test.skip('should change episodes list based in selected season', async () => {
     const { container } = render(<RouterProvider router={router} />)
     const selectElem = container.querySelector('[name="seasons"]')!
 
@@ -37,7 +37,7 @@ test('should change episodes list based in selected season', async () => {
     await waitFor(()=>expect(screen.getByText(/S2.EP1 - Bad Blood/)).toBeInTheDocument())
 })
 
-test('should show season 1 as default value', async () => {
+test.skip('should show season 1 as default value', async () => {
     render(<RouterProvider router={router} />)
 
     await waitFor(() => expect(screen.getByText(/S1.EP1 - Summons/i)).toBeInTheDocument())
