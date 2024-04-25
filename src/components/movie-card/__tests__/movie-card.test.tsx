@@ -2,9 +2,9 @@ import { render, screen } from "@testing-library/react"
 import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import userEvent from "@testing-library/user-event"
 
-import { App } from "../App"
-import { Home } from "../home"
-import { ShowDetails } from "../show-details"
+import { App } from "../../../App"
+import { Home } from "../../../modules/home/home"
+import { ShowDetails } from "../../../modules/show-details/show-details"
 
 import mockMovieCard from './mock-movie-card.json'
 const mockLoader = () => {

@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 
-import { Navbar } from "./navbar";
+import { Navbar } from "../navbar";
 
 const routes = [
     {

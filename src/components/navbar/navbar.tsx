@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import '../css/_navbar.scss'
+import '../../css/_navbar.scss'
 
-import { useShrink } from '../utils/useShrink'
-import { OpenSVG } from '../assets/open-svg'
-import { CloseSVG } from '../assets/close-svg'
+import { useShrink } from '../../utils/useShrink'
+import { OpenSVG } from '../../assets/open-svg'
+import { CloseSVG } from '../../assets/close-svg'
 
 export const Navbar = () => {
     const [show, setShow] = useState(false)
