@@ -25,25 +25,25 @@ test('should not show navbar button when in big screen', () => {
 
 test('should show navbar button when in smaller screens', () => {
     window.innerWidth = 600
-    render(provider)
+    const { container } = render(provider)
 
-    expect(screen.getByText(/show menu/i)).toBeInTheDocument()
+    expect(container.querySelector('[name="show-menu"]')).toBeInTheDocument()
 })
 
 test('should show "close button" after "show menu" is clicked', async () => {
     window.innerWidth = 600
-    render(provider)
+    const { container } = render(provider)
 
-    await userEvent.click(screen.getByText(/show menu/i))
+    await userEvent.click(container.querySelector('[name="show-menu"]')!)
 
-    expect(screen.getByText(/close menu/i)).toBeInTheDocument()
+    expect(container.querySelector('[name="hide-menu"]')).toBeInTheDocument()
 })
 
 test('should show menu items after "show menu" is clicked', async () => {
     window.innerWidth = 600
-    render(provider)
+    const { container } = render(provider)
 
-    await userEvent.click(screen.getByText(/show menu/i))
+    await userEvent.click(container.querySelector('[name="show-menu"]')!)
 
     expect(screen.getByText(/home/i)).toBeInTheDocument()
 })
