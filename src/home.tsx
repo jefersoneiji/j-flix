@@ -4,7 +4,7 @@ import { fetchAPI } from './api/fetch'
 import { errorHandler } from './api/error-handler'
 
 export const showsLoader = async () => {
-    const shows = await fetchAPI({ url: 'https://api.tvmaze.com/shows', init: { method: 'GET' } })
+    const shows = await fetchAPI({ url: '/shows', init: { method: 'GET' } })
     await errorHandler(shows)
     return { shows }
 }

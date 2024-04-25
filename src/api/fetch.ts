@@ -7,8 +7,8 @@ type FetchAPIProps = {
 }
 export const fetchAPI = async ({ url, init }: FetchAPIProps) => {
     try {
-        const response = await fetch(url, init)
-        
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL + url}`, init)
+
         if (!response.ok) {
             return response
         } else {
