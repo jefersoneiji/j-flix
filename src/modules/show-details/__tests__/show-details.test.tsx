@@ -2,8 +2,8 @@ import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
-import { App } from "./App"
-import { ShowDetails } from "./show-details"
+import { App } from "../../../App"
+import { ShowDetails } from "../show-details"
 import mockShowDetails from './mock-show-details.json'
 import mockShowSeasons from './mock-show-seasons.json'
 

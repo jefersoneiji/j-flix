@@ -1,22 +1,6 @@
 import { useLoaderData } from 'react-router-dom'
-import { MovieCard } from "./components/movie-card"
-import { fetchAPI } from './api/fetch'
-import { errorHandler } from './api/error-handler'
-
-export const showsLoader = async () => {
-    const shows = await fetchAPI({ url: '/shows', init: { method: 'GET' } })
-    await errorHandler(shows)
-    return { shows }
-}
-
-type ShowProps = {
-    shows: Array<{
-        id: number,
-        url: string,
-        name: string,
-        image: { medium: string }
-    }>
-}
+import { MovieCard } from "../../components/movie-card/movie-card"
+import { ShowProps } from './types'
 
 export const Home = () => {
     const { shows } = useLoaderData() as ShowProps

@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 
-import { Navbar } from './components/navbar'
+import { Navbar } from './components/navbar/navbar'
 import './css/_grid.scss'
 
 export function App() {

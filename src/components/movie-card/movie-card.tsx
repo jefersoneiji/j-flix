@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom'
+import { MovieProps } from './types'
 
-type MovieProps = {
-    id: number,
-    imageURL: string
-}
 export const MovieCard = ({ id, imageURL }: MovieProps) => {
     return (
         <Link to={`show/${id}`} style={{ marginTop: 20 }}>

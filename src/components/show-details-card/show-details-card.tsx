@@ -1,13 +1,6 @@
-import '../css/_grid.scss'
+import '../../css/_grid.scss'
+import { ShowDetailProps } from './types'
 
-type ShowDetailProps = {
-    title: string,
-    summary: string,
-    duration: number,
-    season: number,
-    number: number,
-    imageURL: string
-}
 export const ShowDetailsCard = ({ imageURL, season, number, title, summary, duration }: ShowDetailProps) => {
     return (
         <div className='row'>

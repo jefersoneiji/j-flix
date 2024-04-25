@@ -1,43 +1,15 @@
-import { LoaderFunctionArgs, useLoaderData } from "react-router-dom"
+import { useLoaderData } from "react-router-dom"
 import dayjs from 'dayjs'
 import { ChangeEvent, useEffect, useState } from "react"
 
-import { ShowDetailsCard } from "./components/show-details-card"
-import './css/_grid.scss'
-import './css/_fonts.scss'
+import { ShowDetailsCard } from "../../components/show-details-card/show-details-card"
+import '../../css/_grid.scss'
+import '../../css/_fonts.scss'
 
-import { fetchAPI } from "./api/fetch"
-import defaultEpisodeImage from './assets/episode-image.jpg'
-import defaultShowImage from './assets/show-image.jpg'
-import { errorHandler } from "./api/error-handler"
-
-export const showDetailsLoader = async ({ params }: LoaderFunctionArgs<{ params: { showId: number } }>) => {
-    const showDetails = await fetchAPI({ url: `/shows/${params.showId}`, init: { method: 'GET' } })
-    const showSeasons = await fetchAPI({ url: `/shows/${params.showId}/seasons`, init: { method: 'GET' } })
-
-    await errorHandler(showDetails)
-    await errorHandler(showSeasons)
-
-    return { showDetails, showSeasons: showSeasons }
-
-}
-
-type ShowDetails = {
-    showDetails: {
-        image?: { medium?: string },
-        summary: string,
-        name: string,
-        status: string,
-        premiered: string,
-        genres: Array<string>,
-        ended: string,
-        rating: { average: number }
-    },
-    showSeasons: Array<{
-        number: number,
-        id: number
-    }>
-}
+import { fetchAPI } from "../../api/fetch"
+import { ShowDetailsProps, EpisodeProps } from "./types"
+import defaultEpisodeImage from '../../assets/episode-image.jpg'
+import defaultShowImage from '../../assets/show-image.jpg'
 
 const cleanHTMLTags = (input: string, truncate: boolean = true) => {
     const cleaned = input.replace(/<\/?[^>]+(>|$)/g, "")
@@ -46,7 +18,7 @@ const cleanHTMLTags = (input: string, truncate: boolean = true) => {
 };
 
 export const ShowDetails = () => {
-    const { showDetails, showSeasons: seasons } = useLoaderData() as ShowDetails
+    const { showDetails, showSeasons: seasons } = useLoaderData() as ShowDetailsProps
     const { name, summary, image, rating, status, premiered, ended, genres } = showDetails
 
     return (
@@ -69,16 +41,7 @@ export const ShowDetails = () => {
     )
 }
 
-type EpisodeProps = {
-    name: string,
-    number: number,
-    season: number,
-    id: number,
-    runtime: number,
-    summary: string,
-    image?: { medium?: string },
-}
-const EpisodesBySeason = ({ seasons }: { seasons: ShowDetails['showSeasons'] }) => {
+const EpisodesBySeason = ({ seasons }: { seasons: ShowDetailsProps['showSeasons'] }) => {
     const [season, setSeason] = useState(seasons[0].id)
     const onChangeSeason = (e: ChangeEvent<HTMLSelectElement>) => setSeason(Number(e.target.value))
 
