@@ -5,14 +5,16 @@ import { Home } from "./modules/home/home";
 import { ShowDetails } from "./modules/show-details/show-details";
 import { showsLoader } from "./modules/home/data-loaders";
 import { showDetailsLoader } from "./modules/show-details/data-loaders";
+import ErrorPage from "./components/error-page/error-page";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <App />,
+        errorElement: <ErrorPage />,
         children: [
             {
-                path: '/',
+                index: true,
                 element: <Home />,
                 loader: showsLoader
             },
