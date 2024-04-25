@@ -20,6 +20,14 @@
     color: v.$netflix-red !important;
 }
 
+.nav-button {
+    position: absolute;
+    right: 10px;
+    top: 16px;
+    background: none;
+    border: none;
+}
+
 .navbar-nav {
     display: flex;
     flex-direction: row;
