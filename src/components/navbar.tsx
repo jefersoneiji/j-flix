@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import '../css/_navbar.scss'
 
 import { useShrink } from '../utils/useShrink'
+import { OpenSVG } from '../assets/open-svg'
+import { CloseSVG } from '../assets/close-svg'
 
 export const Navbar = () => {
     const [show, setShow] = useState(false)
@@ -13,9 +15,11 @@ export const Navbar = () => {
     return (
         <header className='navbar'>
             <nav className="nav-container">
-                <Link to={'/'} className='navbar-brand nav-link subtitle' style={{fontSize:26}}>
+                <Link to={'/'} className='navbar-brand nav-link subtitle' style={{ fontSize: 26 }}>
                     JFlix
                 </Link>
+                {shrink && !show && <button name="show-menu" className="nav-button" onClick={onShow}><OpenSVG /></button>}
+                {shrink && show && <button name="hide-menu" className="nav-button" onClick={onShow}><CloseSVG /></button>}
                 {shrink && show &&
                     <div className='navbar-collapse'>
                         <NavItems />
@@ -26,8 +30,6 @@ export const Navbar = () => {
                         <NavItems />
                     </ul>
                 </div>}
-                {shrink && !show && <button onClick={onShow} name="show-menu">Show Menu</button>}
-                {shrink && show && <button onClick={onShow} name="hide-menu">Close Menu</button>}
             </nav>
         </header>
     )
