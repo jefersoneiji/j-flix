@@ -22,7 +22,7 @@
 
 .nav-button {
     position: absolute;
-    right: 10px;
+    right: 16px;
     top: 16px;
     background: none;
     border: none;
@@ -49,6 +49,12 @@
 .nav-link {
     text-decoration: none;
     color: v.$white;
+}
+
+@media only screen and (min-width: v.$xs) and (max-width: v.$lg) {
+    .navbar-brand {
+        margin-left: 16px;
+    }
 }
 
 @media only screen and (min-width: v.$md) {

@@ -20,3 +20,10 @@
     font-style: normal;
     color: v.$white;
 }
+
+@media only screen and (min-width: v.$xs) and (max-width:v.$lg) {
+    .header-responsive {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
