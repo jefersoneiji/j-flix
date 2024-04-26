@@ -45,5 +45,5 @@ test('should show menu items after "show menu" is clicked', async () => {
 
     await userEvent.click(container.querySelector('[name="show-menu"]')!)
 
-    expect(screen.getByText(/home/i)).toBeInTheDocument()
+    expect(screen.getAllByText(/home/i)[0]).toBeInTheDocument()
 })
