@@ -23,10 +23,8 @@ export const Navbar = () => {
                         <NavItems />
                     </div>
                 }
-                {<div className='navbar-collapse navbar-collapse-mobile'>
-                    <ul className='navbar-nav'>
-                        <NavItems />
-                    </ul>
+                {<div className='navbar-collapse navbar-collapse-mobile' >
+                    <NavItems />
                 </div>}
             </nav>
         </header>
