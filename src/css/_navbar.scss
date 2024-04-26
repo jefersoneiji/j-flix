@@ -51,6 +51,16 @@
     color: v.$white;
 }
 
+@media only screen and (min-width: v.$md) {
+    .nav-button {
+        display: none;
+    }
+
+    .navbar-collapse-desktop {
+        display: none;
+    }
+}
+
 @media only screen and (min-width: v.$xs) and (max-width:v.$md) {
     .nav-container {
         display: flex;
@@ -76,4 +86,9 @@
     .nav-item {
         padding-top: 10px;
     }
+
+    .navbar-collapse-mobile {
+        display: none;
+    }
+    
 }
