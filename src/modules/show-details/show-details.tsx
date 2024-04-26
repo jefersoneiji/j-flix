@@ -57,7 +57,7 @@ const EpisodesBySeason = ({ seasons }: { seasons: ShowDetailsProps['showSeasons'
 
     return (
         <div className="container">
-            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div className="header-responsive" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                 <h1 className="header" style={{ margin: 0 }}>Episodes</h1>
                 <select
                     name="seasons"
