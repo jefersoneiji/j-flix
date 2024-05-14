@@ -2,27 +2,7 @@ import { RouterProvider, createMemoryRouter } from "react-router-dom"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
-import { App } from "../../../App"
-import { ShowDetails } from "../show-details"
-import mockShowDetails from './mock-show-details.json'
-import mockShowSeasons from './mock-show-seasons.json'
-
-const showDetailsLoader = () => {
-    return { showDetails: mockShowDetails, showSeasons: mockShowSeasons }
-}
-const routes = [
-    {
-        path: '/',
-        element: <App />,
-        children: [
-            {
-                path: '/show/:showId',
-                element: <ShowDetails />,
-                loader: showDetailsLoader
-            }
-        ]
-    },
-]
+import { routes } from "./router"
 
 const router = createMemoryRouter(routes, {
     initialEntries: ['/show/2']
