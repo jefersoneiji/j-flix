@@ -5,7 +5,6 @@ import seasonEpisodes from './season-episodes.json'
 import seasonTwoEpisodes from './season-two-episodes.json'
 
 export const restHandlers = [
-    // http.get('https://https://api.tvmaze.com/seasons/7/episodes', ()=>{
     http.get('undefined/seasons/7/episodes', ()=>{
         return HttpResponse.json(seasonEpisodes)
     }),
