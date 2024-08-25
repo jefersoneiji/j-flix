@@ -75,12 +75,12 @@ Example: In `home.tsx` the data loader is inside the home component itself.
 
 ### Fetching
 
-Requests are done through the Fetch API. See [featchAPI](./src/api/fetch.ts)
+Requests are done through the Fetch API. See [fetchAPI](./src/api/fetch.ts)
 
 ### Error Handling
 
 Errors are handled in two levels:
-1.  inside the [featchAPI](./src/api/fetch.ts) or 
+1.  inside the [fetchAPI](./src/api/fetch.ts) or 
 2.  inside the component itself through an [error handler](./src/api/error-handler.ts). See: [home](./src/home.tsx) `showsLoader()`
 
 ## Future Improvements
